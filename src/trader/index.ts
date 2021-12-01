@@ -1,3 +1,4 @@
+import { nums } from '@wrule/nums';
 import { IDayData } from '../dayData';
 import { Strategy } from '../strategy';
 import { ITradeData, TradeLog } from './log';
@@ -53,6 +54,18 @@ class Trader {
 
   public End(data: IDayData) {
     this.Sell(data);
+  }
+
+  public get winNums() {
+    return nums(this.log.filter((item) => item.Income >= 0).map((item) => item.Income));
+  }
+
+  public get loseNums() {
+    return nums(this.log.filter((item) => item.Income < 0).map((item) => item.Income));
+  }
+
+  public get winRate() {
+    return this.winNums.length / this.log.length;
   }
 
   public Backtesting(list: IDayData[]) {

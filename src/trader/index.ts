@@ -4,11 +4,14 @@ import { ITradeData, TradeLog } from './log';
 export
 class Trader {
   public constructor(
-    private funds = 1,
+    private initFunds = 1,
     private buyFee = 0.998,
     private sellFee = 0.998,
-  ) { }
+  ) {
+    this.funds = this.initFunds;
+  }
 
+  private funds = 0;
   private assets = 0;
 
   public get Holding() {
@@ -37,5 +40,12 @@ class Trader {
       this.data.push({ ...data, funds: this.funds });
       this.log.push(new TradeLog(this.data));
     }
+  }
+
+  public Reset() {
+    this.funds = this.initFunds;
+    this.assets = 0;
+    this.data = [];
+    this.log = [];
   }
 }

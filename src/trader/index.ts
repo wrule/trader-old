@@ -5,8 +5,8 @@ export
 class Trader {
   public constructor(
     private funds = 1,
-    private buyFee = 0.98,
-    private sellFee = 0.98,
+    private buyFee = 0.998,
+    private sellFee = 0.998,
   ) { }
 
   private assets = 0;

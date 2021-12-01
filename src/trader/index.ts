@@ -58,6 +58,7 @@ class Trader {
   public Backtesting(list: IDayData[]) {
     if (list.length > 0) {
       this.Reset();
+      this.strategy.Install(this);
       const nlist = list.slice().reverse();
       nlist.forEach((data, index) => {
         this.strategy.Watch(nlist.slice(nlist.length - index - 1));

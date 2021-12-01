@@ -22,13 +22,13 @@ extends Strategy {
       this.fast.Nums[this.indexBefore()] <= this.slow.Nums[this.indexBefore()] &&
       this.fast.Nums[this.index] > this.slow.Nums[this.index]
     ) {
-      this.trader.BuyAllIn(this.data);
+      this.trader.Buy(this.data);
     }
     if (
       this.fast.Nums[this.indexBefore()] >= this.slow.Nums[this.indexBefore()] &&
       this.fast.Nums[this.index] < this.slow.Nums[this.index]
     ) {
-      this.trader.SellAllOut(this.data);
+      this.trader.Sell(this.data);
     }
     return true;
   }

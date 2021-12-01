@@ -8,8 +8,8 @@ const dayData = loadFromCoinmarketcapData(data);
 const dayPrice = nums(dayData.map((item) => item.price));
 
 const strategy = new Cross2Ready(
-  dayPrice.MA(7),
-  dayPrice.MA(21),
+  dayPrice.MA(8),
+  dayPrice.MA(44),
 );
 const trader = new Trader(strategy);
 trader.Backtesting(dayData);
@@ -26,4 +26,4 @@ console.log(
   trader.loseNums.min(),
   trader.loseNums.standardDeviation(),
 );
-console.log(trader.winRate);
+console.log(trader.winRate, trader.income);

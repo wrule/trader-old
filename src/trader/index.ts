@@ -18,13 +18,21 @@ class Trader {
     return this.assets;
   }
 
+  public get Holding() {
+    return this.assets > 0;
+  }
+
   public Buy(data: IDayData) {
-    this.assets = this.funds / data.price * this.buyFee;
-    this.funds = 0;
+    if (!this.Holding) {
+      this.assets = this.funds / data.price * this.buyFee;
+      this.funds = 0;
+    }
   }
 
   public Sell(data: IDayData) {
-    this.funds = this.assets * data.price * this.sellFee;
-    this.assets = 0;
+    if (this.Holding) {
+      this.funds = this.assets * data.price * this.sellFee;
+      this.assets = 0;
+    }
   }
 }

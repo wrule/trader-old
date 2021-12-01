@@ -1,2 +1,4 @@
+import { Trader } from './trader';
 
-console.log('测试代码');
+const trader = new Trader();
+console.log(trader.Holding);

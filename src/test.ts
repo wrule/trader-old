@@ -26,4 +26,5 @@ console.log(
   trader.loseNums.min(),
   trader.loseNums.standardDeviation(),
 );
-console.log(trader.winRate, trader.income);
+console.log(trader.winRate, trader.income, trader.Log.length);
+console.log(trader.winNums);

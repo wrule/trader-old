@@ -28,4 +28,16 @@ abstract class Strategy {
   protected pricesBefore(interval: number = 1) {
     return this.prices.slice(undefined, interval);
   }
+
+  protected get index() {
+    return this.latestData.length - 1;
+  }
+
+  protected indexBefore(interval: number = 1) {
+    return this.index - interval;
+  }
+
+  protected get data() {
+    return this.latestData[0];
+  }
 }

@@ -52,4 +52,11 @@ class Trader {
   public End(data: IDayData) {
     this.Sell(data);
   }
+
+  public Backtesting(list: IDayData[]) {
+    if (list.length > 0) {
+      this.Reset();
+      this.End(list[list.length - 1]);
+    }
+  }
 }

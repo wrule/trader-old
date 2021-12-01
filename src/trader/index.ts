@@ -48,4 +48,8 @@ class Trader {
     this.data = [];
     this.log = [];
   }
+
+  public End(data: IDayData) {
+    this.Sell(data);
+  }
 }

@@ -1,9 +1,11 @@
 import { IDayData } from '../dayData';
+import { Strategy } from '../strategy';
 import { ITradeData, TradeLog } from './log';
 
 export
 class Trader {
   public constructor(
+    private strategy: Strategy,
     private initFunds = 1,
     private buyFee = 0.998,
     private sellFee = 0.998,
@@ -56,7 +58,11 @@ class Trader {
   public Backtesting(list: IDayData[]) {
     if (list.length > 0) {
       this.Reset();
-      this.End(list[list.length - 1]);
+      const nlist = list.slice().reverse();
+      nlist.forEach((data, index) => {
+        this.strategy.Watch(nlist.slice(nlist.length - index - 1));
+      });
+      this.End(nlist[0]);
     }
   }
 }

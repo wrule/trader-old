@@ -12,15 +12,15 @@ class Trade {
     private data: ITradeData[],
   ) { }
 
-  public get BuyData() {
+  public get buyData() {
     return this.data[0];
   }
 
-  public get SellData() {
+  public get sellData() {
     return this.data[1];
   }
 
-  public get Income() {
+  public get income() {
     return (this.data[1].funds - this.data[0].funds) / this.data[0].funds;
   }
 }

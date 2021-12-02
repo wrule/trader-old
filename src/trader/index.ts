@@ -1,7 +1,8 @@
 import { nums } from '@wrule/nums';
 import { IDayData } from '../dayData';
 import { Strategy } from '../strategy';
-import { ITradeData, TradeLog } from './log';
+import { ITradeData, Trade } from './trade';
+import { TradeList } from './tradeList';
 
 export
 class Trader {
@@ -22,10 +23,10 @@ class Trader {
   }
 
   private data: ITradeData[] = [];
-  private log: TradeLog[] = [];
+  private tradeList: TradeList = new TradeList();
 
-  public get Log() {
-    return this.log;
+  public get TradeList() {
+    return this.tradeList;
   }
 
   public Buy(data: IDayData) {
@@ -41,7 +42,7 @@ class Trader {
       this.funds = this.assets * data.price * this.sellFee;
       this.assets = 0;
       this.data.push({ ...data, funds: this.funds });
-      this.log.push(new TradeLog(this.data));
+      this.tradeList.push(new Trade(this.data));
     }
   }
 
@@ -49,56 +50,11 @@ class Trader {
     this.funds = this.initFunds;
     this.assets = 0;
     this.data = [];
-    this.log = [];
+    this.tradeList.Reset();
   }
 
   public End(data: IDayData) {
     this.Sell(data);
-  }
-
-  public get winNums() {
-    return nums(this.log.filter((item) => item.Income >= 0).map((item) => item.Income));
-  }
-
-  public get loseNums() {
-    return nums(this.log.filter((item) => item.Income < 0).map((item) => item.Income));
-  }
-
-  /**
-   * 最大连续亏损交易索引序列
-   */
-  public get maxConsecutiveLossesIndexs() {
-    let start = -1;
-    const indexs: [number, number][] = [];
-    this.log.forEach((item, index) => {
-      const prevItem = this.log[index - 1] || null;
-      if (
-        item.Income <= 0 &&
-        (prevItem == null || prevItem.Income > 0)
-      ) {
-        start = index;
-      }
-      if (start >= 0) {
-        if (item.Income > 0) {
-          indexs.push([index, start]);
-          start = -1;
-        } else if (index >= this.log.length - 1) {
-          indexs.push([index + 1, start]);
-          start = -1;
-        }
-      }
-    });
-    indexs.sort((a, b) => (b[0] - b[1]) - (a[0] - a[1]));
-    return indexs;
-  }
-
-  public get maxConsecutiveLosses() {
-    return this.maxConsecutiveLossesIndexs
-      .map(([end, start]) => this.log.slice(start, end));
-  }
-
-  public get winRate() {
-    return this.winNums.length / this.log.length;
   }
 
   public get income() {

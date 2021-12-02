@@ -12,20 +12,24 @@ class TradeList {
     return this.trades.push(...items);
   }
 
+  public Reset() {
+    this.trades = [];
+  }
+
   public get length() {
     return this.trades.length;
   }
 
   public incoms() {
-    return nums(this.trades.map((trade) => trade.Income));
+    return nums(this.trades.map((trade) => trade.income));
   }
 
   public profitTrades() {
-    return new TradeList(this.trades.filter((trade) => trade.Income > 0));
+    return new TradeList(this.trades.filter((trade) => trade.income > 0));
   }
 
   public lossTrades() {
-    return new TradeList(this.trades.filter((trade) => trade.Income <= 0));
+    return new TradeList(this.trades.filter((trade) => trade.income <= 0));
   }
 
   public profitRate() {
@@ -42,13 +46,13 @@ class TradeList {
     this.trades.forEach((trade, index) => {
       const prevTrade = this.trades[index - 1] || null;
       if (
-        trade.Income <= 0 &&
-        (prevTrade == null || prevTrade.Income > 0)
+        trade.income <= 0 &&
+        (prevTrade == null || prevTrade.income > 0)
       ) {
         start = index;
       }
       if (start >= 0) {
-        if (trade.Income > 0) {
+        if (trade.income > 0) {
           indexs.push([index, start]);
           start = -1;
         } else if (index >= this.trades.length - 1) {
@@ -69,13 +73,13 @@ class TradeList {
     this.trades.forEach((trade, index) => {
       const prevTrade = this.trades[index - 1] || null;
       if (
-        trade.Income > 0 &&
-        (prevTrade == null || prevTrade.Income <= 0)
+        trade.income > 0 &&
+        (prevTrade == null || prevTrade.income <= 0)
       ) {
         start = index;
       }
       if (start >= 0) {
-        if (trade.Income <= 0) {
+        if (trade.income <= 0) {
           indexs.push([index, start]);
           start = -1;
         } else if (index >= this.trades.length - 1) {
@@ -99,8 +103,8 @@ class TradeList {
     return new TradeList(
       this.trades.filter(
         (trade) => (
-          trade.BuyData.time >= startTime &&
-          trade.BuyData.time <= endTime
+          trade.buyData.time >= startTime &&
+          trade.buyData.time <= endTime
         )
       )
     );

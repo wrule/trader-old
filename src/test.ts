@@ -17,4 +17,4 @@ trader.Backtesting(dayData);
 trader.Log.map((item) => item.Income).map((num) => `${Number((num * 100).toFixed(2))}%`).forEach((item, index) => {
   console.log(index, item);
 });
-console.log(trader.maxConsecutiveLossesIndexs);
+console.log(trader.maxConsecutiveLosses);

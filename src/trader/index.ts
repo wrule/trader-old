@@ -92,6 +92,11 @@ class Trader {
     return indexs;
   }
 
+  public get maxConsecutiveLosses() {
+    return this.maxConsecutiveLossesIndexs
+      .map(([end, start]) => this.log.slice(start, end));
+  }
+
   public get winRate() {
     return this.winNums.length / this.log.length;
   }

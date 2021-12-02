@@ -1,4 +1,3 @@
-import { nums } from '@wrule/nums';
 import { IDayData } from '../dayData';
 import { Strategy } from '../strategy';
 import { ITradeData, Trade } from './trade';
@@ -18,7 +17,7 @@ class Trader {
   private funds = 0;
   private assets = 0;
 
-  public get Holding() {
+  public get holding() {
     return this.assets > 0;
   }
 
@@ -30,7 +29,7 @@ class Trader {
   }
 
   public Buy(data: IDayData) {
-    if (!this.Holding) {
+    if (!this.holding) {
       this.data = [{ ...data, funds: this.funds }];
       this.assets = this.funds / data.price * this.buyFee;
       this.funds = 0;
@@ -38,7 +37,7 @@ class Trader {
   }
 
   public Sell(data: IDayData) {
-    if (this.Holding) {
+    if (this.holding) {
       this.funds = this.assets * data.price * this.sellFee;
       this.assets = 0;
       this.data.push({ ...data, funds: this.funds });

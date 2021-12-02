@@ -8,14 +8,25 @@ import { MACross2LineReadyFinder } from './finder/MACross2LineReadyFinder';
 const dayData = loadFromCoinmarketcapData(data);
 const dayPrice = nums(dayData.map((item) => item.price));
 
-let dataSet = Array(10)
+let dataSet = Array(1)
   .fill(0)
-  .map(() => dayPrice.randomRangeEndStart(365))
+  .map(() => dayPrice.randomRangeEndStart(dayPrice.length))
   .map(([end, start]) => dayData.slice(start, end));
 
-const finder = new MACross2LineReadyFinder(dataSet, 1, 120);
+const finder = new MACross2LineReadyFinder([dayData.slice(0, 2000)], 1, 120);
 const map = finder.Find();
-console.log(map.size);
+
+let maxWinRate = 0;
+let maxIncome = 0;
+
+Array.from(map.entries()).forEach(([key, value]) => {
+  value.forEach((item) => {
+    if (item.trader.income > maxIncome) {
+      maxIncome = item.trader.income;
+      console.log(key, item.trader.winRate, item.trader.Log.length, item.trader.income);
+    }
+  });
+});
 // console.log(dataSet);
 
 // const strategy = new Cross2Ready(

@@ -3,9 +3,9 @@ import { Trade } from './trade';
 import moment from 'moment';
 
 export
-class Trades {
+class TradeList {
   public constructor(
-    private trades: Trade[],
+    private trades: Trade[] = [],
   ) { }
 
   public push(...items: Trade[]) {
@@ -21,11 +21,11 @@ class Trades {
   }
 
   public profitTrades() {
-    return new Trades(this.trades.filter((trade) => trade.Income > 0));
+    return new TradeList(this.trades.filter((trade) => trade.Income > 0));
   }
 
   public lossTrades() {
-    return new Trades(this.trades.filter((trade) => trade.Income <= 0));
+    return new TradeList(this.trades.filter((trade) => trade.Income <= 0));
   }
 
   public profitRate() {
@@ -59,7 +59,7 @@ class Trades {
     });
     indexs.sort((a, b) => (b[0] - b[1]) - (a[0] - a[1]));
     return indexs.map(
-      ([end, start]) => new Trades(this.trades.slice(start, end))
+      ([end, start]) => new TradeList(this.trades.slice(start, end))
     );
   }
 
@@ -86,7 +86,7 @@ class Trades {
     });
     indexs.sort((a, b) => (b[0] - b[1]) - (a[0] - a[1]));
     return indexs.map(
-      ([end, start]) => new Trades(this.trades.slice(start, end))
+      ([end, start]) => new TradeList(this.trades.slice(start, end))
     );
   }
 
@@ -96,7 +96,7 @@ class Trades {
   ) {
     const startTime = start != null ? moment(start).valueOf() : -Infinity;
     const endTime = end != null ? moment(end).valueOf() : Infinity;
-    return new Trades(
+    return new TradeList(
       this.trades.filter(
         (trade) => (
           trade.BuyData.time >= startTime &&

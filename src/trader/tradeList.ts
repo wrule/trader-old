@@ -64,7 +64,30 @@ class Trades {
   }
 
   public profitTradeSet() {
-
+    let start = -1;
+    const indexs: [number, number][] = [];
+    this.trades.forEach((trade, index) => {
+      const prevTrade = this.trades[index - 1] || null;
+      if (
+        trade.Income > 0 &&
+        (prevTrade == null || prevTrade.Income <= 0)
+      ) {
+        start = index;
+      }
+      if (start >= 0) {
+        if (trade.Income <= 0) {
+          indexs.push([index, start]);
+          start = -1;
+        } else if (index >= this.trades.length - 1) {
+          indexs.push([index + 1, start]);
+          start = -1;
+        }
+      }
+    });
+    indexs.sort((a, b) => (b[0] - b[1]) - (a[0] - a[1]));
+    return indexs.map(
+      ([end, start]) => new Trades(this.trades.slice(start, end))
+    );
   }
 
   public select(

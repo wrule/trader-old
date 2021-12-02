@@ -5,7 +5,7 @@ import moment from 'moment';
 export
 class Trades {
   public constructor(
-    private trades: Trade[],    
+    private trades: Trade[],
   ) { }
 
   public push(...items: Trade[]) {

@@ -64,6 +64,34 @@ class Trader {
     return nums(this.log.filter((item) => item.Income < 0).map((item) => item.Income));
   }
 
+  /**
+   * 最大连续亏损交易索引序列
+   */
+  public get maxConsecutiveLossesIndexs() {
+    let start = -1;
+    const indexs: [number, number][] = [];
+    this.log.forEach((item, index) => {
+      const prevItem = this.log[index - 1] || null;
+      if (
+        item.Income <= 0 &&
+        (prevItem == null || prevItem.Income > 0)
+      ) {
+        start = index;
+      }
+      if (start >= 0) {
+        if (item.Income > 0) {
+          indexs.push([index, start]);
+          start = -1;
+        } else if (index >= this.log.length - 1) {
+          indexs.push([index + 1, start]);
+          start = -1;
+        }
+      }
+    });
+    indexs.sort((a, b) => (b[0] - b[1]) - (a[0] - a[1]));
+    return indexs;
+  }
+
   public get winRate() {
     return this.winNums.length / this.log.length;
   }

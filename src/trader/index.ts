@@ -108,9 +108,10 @@ class Trader {
       this.strategy.Install(this);
       const nDayData = dayData.slice().reverse();
       nDayData.forEach((data, index) => {
-        this.strategy.Watch(nDayData.slice(nDayData.length - index - 1));
+        this.strategy.Watch(nDayData.slice(nDayData.length - 1 - index));
       });
       this.End(nDayData[0]);
+      this.strategy.Uninstall();
     }
   }
 }

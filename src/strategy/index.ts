@@ -12,6 +12,10 @@ abstract class Strategy {
     this.trader = trader;
   }
 
+  public Uninstall() {
+    this.trader = null as any;
+  }
+
   protected latestData: IDayData[] = [];
 
   public Watch(latestData: IDayData[]) {

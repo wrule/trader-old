@@ -24,21 +24,21 @@ class Trade {
   /**
    * 买入交易数据
    */
-  public get buyData() {
+  public get BuyData() {
     return this.data[0];
   }
 
   /**
    * 出售交易数据
    */
-  public get sellData() {
+  public get SellData() {
     return this.data[1];
   }
 
   /**
    * 收益
    */
-  public get income() {
-    return (this.sellData.funds - this.buyData.funds) / this.buyData.funds;
+  public get Income() {
+    return (this.SellData.funds - this.BuyData.funds) / this.BuyData.funds;
   }
 }

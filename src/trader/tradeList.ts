@@ -41,21 +41,21 @@ class TradeList {
    * 交易收益的Nums
    */
   public get Incomes() {
-    return nums(this.trades.map((trade) => trade.income));
+    return nums(this.trades.map((trade) => trade.Income));
   }
 
   /**
    * 盈利交易列表
    */
   public get ProfitTrades() {
-    return new TradeList(this.trades.filter((trade) => trade.income > 0));
+    return new TradeList(this.trades.filter((trade) => trade.Income > 0));
   }
 
   /**
    * 亏损交易列表
    */
   public get PossTrades() {
-    return new TradeList(this.trades.filter((trade) => trade.income <= 0));
+    return new TradeList(this.trades.filter((trade) => trade.Income <= 0));
   }
 
   /**
@@ -75,13 +75,13 @@ class TradeList {
     this.trades.forEach((trade, index) => {
       const prevTrade = this.trades[index - 1] || null;
       if (
-        trade.income <= 0 &&
-        (prevTrade == null || prevTrade.income > 0)
+        trade.Income <= 0 &&
+        (prevTrade == null || prevTrade.Income > 0)
       ) {
         start = index;
       }
       if (start >= 0) {
-        if (trade.income > 0) {
+        if (trade.Income > 0) {
           indexs.push([index, start]);
           start = -1;
         } else if (index >= this.trades.length - 1) {
@@ -106,13 +106,13 @@ class TradeList {
     this.trades.forEach((trade, index) => {
       const prevTrade = this.trades[index - 1] || null;
       if (
-        trade.income > 0 &&
-        (prevTrade == null || prevTrade.income <= 0)
+        trade.Income > 0 &&
+        (prevTrade == null || prevTrade.Income <= 0)
       ) {
         start = index;
       }
       if (start >= 0) {
-        if (trade.income <= 0) {
+        if (trade.Income <= 0) {
           indexs.push([index, start]);
           start = -1;
         } else if (index >= this.trades.length - 1) {
@@ -142,8 +142,8 @@ class TradeList {
     return new TradeList(
       this.trades.filter(
         (trade) => (
-          trade.buyData.time >= startTime &&
-          trade.buyData.time <= endTime
+          trade.BuyData.time >= startTime &&
+          trade.BuyData.time <= endTime
         )
       )
     );

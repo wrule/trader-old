@@ -3,21 +3,34 @@ import { Cross2Ready } from './strategy/Cross2Ready';
 import data from './data/btc.json';
 import { loadFromCoinmarketcapData } from './data';
 import { nums } from '@wrule/nums';
-import { MACross2LineReadyFinder } from './finder/MACross2LineReadyFinder';
-import moment from 'moment';
 
-console.log(moment('2021-2-5 ').valueOf());
+const dayData = loadFromCoinmarketcapData(data);
+const dayPrice = nums(dayData.map((item) => item.price));
+const strategy = new Cross2Ready(dayPrice.MA(8), dayPrice.MA(44));
+const trader = new Trader(strategy);
+trader.Backtesting(dayData);
 
-// const dayData = loadFromCoinmarketcapData(data);
-// const dayPrice = nums(dayData.map((item) => item.price));
+function xnum(num: number) {
+  return Number(num.toFixed(4));
+}
 
-// const strategy = new Cross2Ready(
-//   dayPrice.MA(8),
-//   dayPrice.MA(44),
-// );
-// const trader = new Trader(strategy);
-// trader.Backtesting(dayData);
-// trader.Log.map((item) => item.Income).map((num) => `${Number((num * 100).toFixed(2))}%`).forEach((item, index) => {
-//   console.log(index, item);
-// });
-// console.log(trader.maxConsecutiveLosses);
+function pnum(num: number) {
+  return xnum(num * 100);
+}
+
+console.log('交易次数: ', trader.TradeList.Length);
+console.log('胜率(%): ', pnum(trader.TradeList.ProfitRate * 100));
+const maxLossList = trader.TradeList.LossTradeSet()[0];
+console.log('最大连续亏损次数: ', maxLossList.Length);
+console.log(
+  '最小(%): ', pnum(maxLossList.Incomes.max()),
+  '平均(%): ', pnum(maxLossList.Incomes.avg()),
+  '最大(%): ', pnum(maxLossList.Incomes.min()),
+);
+const maxProfitList = trader.TradeList.ProfitTradeSet()[0];
+console.log('最大连续盈利次数: ', maxLossList.Length);
+console.log(
+  '最小(%): ', pnum(maxProfitList.Incomes.min()),
+  '平均(%): ', pnum(maxProfitList.Incomes.avg()),
+  '最大(%): ', pnum(maxProfitList.Incomes.max()),
+);

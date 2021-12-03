@@ -65,7 +65,11 @@ class TradeList {
     return this.ProfitTrades.Length / this.Length;
   }
 
-  public lossTradeSet() {
+  /**
+   * 获取连续亏损交易集
+   * @returns 连续亏损交易集
+   */
+  public LossTradeSet() {
     let start = -1;
     const indexs: [number, number][] = [];
     this.trades.forEach((trade, index) => {
@@ -92,7 +96,11 @@ class TradeList {
     );
   }
 
-  public profitTradeSet() {
+  /**
+   * 获取连续盈利交易集
+   * @returns 连续盈利交易集
+   */
+  public ProfitTradeSet() {
     let start = -1;
     const indexs: [number, number][] = [];
     this.trades.forEach((trade, index) => {
@@ -119,7 +127,13 @@ class TradeList {
     );
   }
 
-  public select(
+  /**
+   * 根据时间字符串选取交易列表
+   * @param start 开始时间
+   * @param end 结束时间
+   * @returns 交易列表
+   */
+  public Select(
     start?: string,
     end?: string,
   ) {

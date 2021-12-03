@@ -98,10 +98,6 @@ class Trader {
     this.tradeList.Reset();
   }
 
-  public get income() {
-    return (this.funds - this.initFunds) / this.initFunds;
-  }
-
   public Backtesting(list: IDayData[]) {
     if (list.length > 0) {
       this.Reset();

@@ -98,15 +98,19 @@ class Trader {
     this.tradeList.Reset();
   }
 
-  public Backtesting(list: IDayData[]) {
-    if (list.length > 0) {
+  /**
+   * 模拟回测
+   * @param dayData 历史数据
+   */
+  public Backtesting(dayData: IDayData[]) {
+    if (dayData.length > 0) {
       this.Reset();
       this.strategy.Install(this);
-      const nlist = list.slice().reverse();
-      nlist.forEach((data, index) => {
-        this.strategy.Watch(nlist.slice(nlist.length - index - 1));
+      const nDayData = dayData.slice().reverse();
+      nDayData.forEach((data, index) => {
+        this.strategy.Watch(nDayData.slice(nDayData.length - index - 1));
       });
-      this.End(nlist[0]);
+      this.End(nDayData[0]);
     }
   }
 }

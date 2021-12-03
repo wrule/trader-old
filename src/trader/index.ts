@@ -24,8 +24,22 @@ class Trader {
     this.funds = this.initFunds;
   }
 
+  /**
+   * 资金量
+   */
   private funds = 0;
+  /**
+   * 资产量
+   */
   private assets = 0;
+  /**
+   * 当下交易数据
+   */
+  private tradeData: ITradeData[] = [];
+  /**
+   * 交易列表
+   */
+  private tradeList: TradeList = new TradeList();
 
   /**
    * 是否持有资产
@@ -34,9 +48,6 @@ class Trader {
     return this.assets > 0;
   }
 
-  private data: ITradeData[] = [];
-  private tradeList: TradeList = new TradeList();
-
   /**
    * 交易列表
    */
@@ -44,31 +55,29 @@ class Trader {
     return this.tradeList;
   }
 
+  /**
+   * 购买资产
+   * @param data 当日数据
+   */
   public Buy(data: IDayData) {
     if (!this.Holding) {
-      this.data = [{ ...data, funds: this.funds }];
+      this.tradeData = [{ ...data, funds: this.funds }];
       this.assets = this.funds / data.price * this.buyFee;
       this.funds = 0;
     }
   }
 
+  /**
+   * 出售资产
+   * @param data 当日数据
+   */
   public Sell(data: IDayData) {
     if (this.Holding) {
       this.funds = this.assets * data.price * this.sellFee;
       this.assets = 0;
-      this.data.push({ ...data, funds: this.funds });
-      this.tradeList.push(new Trade([this.data[0], this.data[1]]));
+      this.tradeData.push({ ...data, funds: this.funds });
+      this.tradeList.push(new Trade([this.tradeData[0], this.tradeData[1]]));
     }
-  }
-
-  /**
-   * 初始化交易者
-   */
-  public Reset() {
-    this.funds = this.initFunds;
-    this.assets = 0;
-    this.data = [];
-    this.tradeList.Reset();
   }
 
   /**
@@ -77,6 +86,16 @@ class Trader {
    */
   public End(data: IDayData) {
     this.Sell(data);
+  }
+
+  /**
+   * 初始化交易者
+   */
+  public Reset() {
+    this.funds = this.initFunds;
+    this.assets = 0;
+    this.tradeData = [];
+    this.tradeList.Reset();
   }
 
   public get income() {

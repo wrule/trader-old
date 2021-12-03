@@ -30,28 +30,39 @@ class TradeList {
     this.trades = [];
   }
 
+  /**
+   * 交易列表长度
+   */
   public get Length() {
     return this.trades.length;
   }
 
-  public get Incoms() {
+  /**
+   * 交易收益的Nums
+   */
+  public get Incomes() {
     return nums(this.trades.map((trade) => trade.income));
   }
 
+  /**
+   * 盈利交易列表
+   */
   public get ProfitTrades() {
     return new TradeList(this.trades.filter((trade) => trade.income > 0));
   }
 
+  /**
+   * 亏损交易列表
+   */
   public get PossTrades() {
     return new TradeList(this.trades.filter((trade) => trade.income <= 0));
   }
 
+  /**
+   * 胜率
+   */
   public get ProfitRate() {
     return this.ProfitTrades.Length / this.Length;
-  }
-
-  public get LossRate() {
-    return this.PossTrades.Length / this.Length;
   }
 
   public lossTradeSet() {

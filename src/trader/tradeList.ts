@@ -45,6 +45,18 @@ class TradeList {
   }
 
   /**
+   * 总收益
+   */
+  public get TotalIncome() {
+    if (this.trades.length > 0) {
+      const first = this.trades[0];
+      const last = this.trades[this.trades.length - 1];
+      return (last.SellData.funds - first.BuyData.funds) / first.BuyData.funds;
+    }
+    return 0;
+  }
+
+  /**
    * 盈利交易列表
    */
   public get ProfitTrades() {

@@ -3,8 +3,18 @@ import { Strategy } from '../strategy';
 import { ITradeData, Trade } from './trade';
 import { TradeList } from './tradeList';
 
+/**
+ * 交易者
+ */
 export
 class Trader {
+  /**
+   * 构造函数
+   * @param strategy 策略
+   * @param initFunds 初始资金
+   * @param buyFee 买入费率
+   * @param sellFee 卖出费率
+   */
   public constructor(
     private strategy: Strategy,
     private initFunds = 1,
@@ -17,19 +27,25 @@ class Trader {
   private funds = 0;
   private assets = 0;
 
-  public get holding() {
+  /**
+   * 是否持有资产
+   */
+  public get Holding() {
     return this.assets > 0;
   }
 
   private data: ITradeData[] = [];
   private tradeList: TradeList = new TradeList();
 
+  /**
+   * 交易列表
+   */
   public get TradeList() {
     return this.tradeList;
   }
 
   public Buy(data: IDayData) {
-    if (!this.holding) {
+    if (!this.Holding) {
       this.data = [{ ...data, funds: this.funds }];
       this.assets = this.funds / data.price * this.buyFee;
       this.funds = 0;
@@ -37,7 +53,7 @@ class Trader {
   }
 
   public Sell(data: IDayData) {
-    if (this.holding) {
+    if (this.Holding) {
       this.funds = this.assets * data.price * this.sellFee;
       this.assets = 0;
       this.data.push({ ...data, funds: this.funds });
@@ -45,6 +61,9 @@ class Trader {
     }
   }
 
+  /**
+   * 初始化交易者
+   */
   public Reset() {
     this.funds = this.initFunds;
     this.assets = 0;
@@ -52,6 +71,10 @@ class Trader {
     this.tradeList.Reset();
   }
 
+  /**
+   * 执行退场命令
+   * @param data 当日数据
+   */
   public End(data: IDayData) {
     this.Sell(data);
   }

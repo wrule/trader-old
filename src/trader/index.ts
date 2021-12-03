@@ -41,7 +41,7 @@ class Trader {
       this.funds = this.assets * data.price * this.sellFee;
       this.assets = 0;
       this.data.push({ ...data, funds: this.funds });
-      this.tradeList.push(new Trade(this.data));
+      this.tradeList.push(new Trade([this.data[0], this.data[1]]));
     }
   }
 

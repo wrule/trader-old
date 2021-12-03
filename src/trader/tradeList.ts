@@ -2,42 +2,56 @@ import { nums } from '@wrule/nums';
 import { Trade } from './trade';
 import moment from 'moment';
 
+/**
+ * 交易列表
+ */
 export
 class TradeList {
+  /**
+   * 构造函数
+   * @param trades 交易列表
+   */
   public constructor(
     private trades: Trade[] = [],
   ) { }
 
-  public push(...items: Trade[]) {
-    return this.trades.push(...items);
+  /**
+   * 向列表中追加交易
+   * @param items 交易
+   */
+  public Push(...items: Trade[]) {
+    this.trades.push(...items);
   }
 
+  /**
+   * 初始化交易列表
+   */
   public Reset() {
     this.trades = [];
   }
 
-  public get length() {
+  public get Length() {
     return this.trades.length;
   }
 
-  public incoms() {
+  public get Incoms() {
     return nums(this.trades.map((trade) => trade.income));
   }
 
-  public profitTrades() {
+  public get ProfitTrades() {
     return new TradeList(this.trades.filter((trade) => trade.income > 0));
   }
 
-  public lossTrades() {
+  public get PossTrades() {
     return new TradeList(this.trades.filter((trade) => trade.income <= 0));
   }
 
-  public profitRate() {
-    return this.profitTrades.length / this.length;
+  public get ProfitRate() {
+    return this.ProfitTrades.Length / this.Length;
   }
 
-  public lossRate() {
-    return this.lossTrades.length / this.length;
+  public get LossRate() {
+    return this.PossTrades.Length / this.Length;
   }
 
   public lossTradeSet() {

@@ -41,4 +41,11 @@ class Trade {
   public get Income() {
     return (this.SellData.funds - this.BuyData.funds) / this.BuyData.funds;
   }
+
+  /**
+   * 持仓持续天数
+   */
+  public get Duration() {
+    return (this.SellData.time - this.BuyData.time) / (1000 * 60 * 60 * 24);
+  }
 }

@@ -23,6 +23,18 @@ class TradeList {
   }
 
   /**
+   * 交易序列持续天数
+   */
+  public get Duration() {
+    if (this.trades.length > 0) {
+      const first = this.trades[0];
+      const last = this.trades[this.trades.length - 1];
+      return (last.SellData.time - first.BuyData.time) / (1000 * 60 * 60 * 24);
+    }
+    return 0;
+  }
+
+  /**
    * 向列表中追加交易
    * @param items 交易
    */

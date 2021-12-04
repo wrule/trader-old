@@ -23,10 +23,12 @@ export function printReport(trader: Trader) {
     '[单次最小盈利%]:', pnum(trader.TradeList.ProfitTrades.Incomes.min()),
     '[单次平均盈利%]:', pnum(trader.TradeList.ProfitTrades.Incomes.avg()),
     '[单次最大盈利%]:', pnum(trader.TradeList.ProfitTrades.Incomes.max()),
+    '[标准差%]:', pnum(trader.TradeList.ProfitTrades.Incomes.standardDeviation()),
   );
   console.log(
     '[单次最小亏损%]:', pnum(trader.TradeList.LossTrades.Incomes.max()),
     '[单次平均亏损%]:', pnum(trader.TradeList.LossTrades.Incomes.avg()),
     '[单次最大亏损%]:', pnum(trader.TradeList.LossTrades.Incomes.min()),
+    '[标准差%]:', pnum(trader.TradeList.LossTrades.Incomes.standardDeviation()),
   );
 }

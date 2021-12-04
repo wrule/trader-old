@@ -12,6 +12,7 @@
   "private": false,
   "dependencies": {
     "@wrule/nums": "^0.1.7",
+    "colors": "^1.4.0",
     "moment": "^2.29.1"
   }
 }

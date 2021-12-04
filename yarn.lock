@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@wrule/nums/-/nums-0.1.7.tgz#cdbdbe01ec7fbe89d3a247e712aca926be84d234"
   integrity sha512-lpTWWpfd9izbA2Oxv/icEJdpkCaKXHjjqlzEFfTwJvJM2k/2F1C/yifIyF/xiGYLWoCc/5+NO6OrheNvJhSY7w==
 
+colors@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
+  integrity sha512-a+UqTh4kgZg/SlGvfbzDHpgRu7AAQOmmqRHJnxhRZICKFUT91brVhNNt58CMWU9PsBbv3PDCZUHbVxuDiH2mtA==
+
 moment@^2.29.1:
   version "2.29.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"

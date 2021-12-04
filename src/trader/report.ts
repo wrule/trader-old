@@ -1,5 +1,6 @@
 import { Trader } from '.';
 import { TradeList } from './tradeList';
+import 'colors';
 
 function xnum(num: number) {
   return Number(num.toFixed(4));
@@ -10,7 +11,7 @@ function pnum(num: number) {
 }
 
 export function printReport(trader: Trader) {
-  console.log('<基本性能>');
+  console.log('<基本性能>'.green);
   console.log(
     '[总盈利(%)]:', pnum(trader.TradeList.TotalIncome),
     '[胜率(%)]:', pnum(trader.TradeList.ProfitRate),
@@ -37,7 +38,7 @@ export function printReport(trader: Trader) {
 }
 
 function profitPrint(profitTradeSet: TradeList[]) {
-  console.log('<盈利详情>');
+  console.log('<盈利详情>'.green);
   profitTradeSet.forEach((tradeList, index) => {
     console.log(
       index + 1,
@@ -54,7 +55,7 @@ function profitPrint(profitTradeSet: TradeList[]) {
 }
 
 function lossPrint(lossTradeSet: TradeList[]) {
-  console.log('<亏损详情>');
+  console.log('<亏损详情>'.green);
   lossTradeSet.forEach((tradeList, index) => {
     console.log(
       index + 1,

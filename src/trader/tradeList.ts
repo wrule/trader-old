@@ -16,6 +16,13 @@ class TradeList {
   ) { }
 
   /**
+   * 交易列表
+   */
+  public get Trades() {
+    return this.trades;
+  }
+
+  /**
    * 向列表中追加交易
    * @param items 交易
    */

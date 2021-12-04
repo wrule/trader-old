@@ -73,7 +73,7 @@ class TradeList {
   /**
    * 亏损交易列表
    */
-  public get PossTrades() {
+  public get LossTrades() {
     return new TradeList(this.trades.filter((trade) => trade.Income <= 0));
   }
 

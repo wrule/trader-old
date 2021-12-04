@@ -10,31 +10,32 @@ function pnum(num: number) {
   return xnum(num * 100);
 }
 
-export function printReport(trader: Trader) {
+export function printReport(tradeList: TradeList) {
   console.log('<基本性能>'.green);
   console.log(
-    '[总盈利(%)]:', pnum(trader.TradeList.TotalIncome),
-    '[胜率(%)]:', pnum(trader.TradeList.ProfitRate),
+    '[总盈利(%)]:', pnum(tradeList.TotalIncome),
+    '[资产升值(%)]:', pnum(tradeList.TotalAppreciation),
+    '[胜率(%)]:', pnum(tradeList.ProfitRate),
   );
   console.log(
-    '[交易次数]:', trader.TradeList.Length,
-    '[盈利次数]:', trader.TradeList.ProfitTrades.Length,
-    '[亏损次数]:', trader.TradeList.LossTrades.Length,
+    '[交易次数]:', tradeList.Length,
+    '[盈利次数]:', tradeList.ProfitTrades.Length,
+    '[亏损次数]:', tradeList.LossTrades.Length,
   );
   console.log(
-    '[单次最小盈利(%)]:', pnum(trader.TradeList.ProfitTrades.Incomes.min()),
-    '[单次平均盈利(%)]:', pnum(trader.TradeList.ProfitTrades.Incomes.avg()),
-    '[单次最大盈利(%)]:', pnum(trader.TradeList.ProfitTrades.Incomes.max()),
-    '[标准差(%)]:', pnum(trader.TradeList.ProfitTrades.Incomes.standardDeviation()),
+    '[单次最小盈利(%)]:', pnum(tradeList.ProfitTrades.Incomes.min()),
+    '[单次平均盈利(%)]:', pnum(tradeList.ProfitTrades.Incomes.avg()),
+    '[单次最大盈利(%)]:', pnum(tradeList.ProfitTrades.Incomes.max()),
+    '[标准差(%)]:', pnum(tradeList.ProfitTrades.Incomes.standardDeviation()),
   );
   console.log(
-    '[单次最小亏损(%)]:', pnum(trader.TradeList.LossTrades.Incomes.max()),
-    '[单次平均亏损(%)]:', pnum(trader.TradeList.LossTrades.Incomes.avg()),
-    '[单次最大亏损(%)]:', pnum(trader.TradeList.LossTrades.Incomes.min()),
-    '[标准差(%)]:', pnum(trader.TradeList.LossTrades.Incomes.standardDeviation()),
+    '[单次最小亏损(%)]:', pnum(tradeList.LossTrades.Incomes.max()),
+    '[单次平均亏损(%)]:', pnum(tradeList.LossTrades.Incomes.avg()),
+    '[单次最大亏损(%)]:', pnum(tradeList.LossTrades.Incomes.min()),
+    '[标准差(%)]:', pnum(tradeList.LossTrades.Incomes.standardDeviation()),
   );
-  profitPrint(trader.TradeList.ProfitTradeSet());
-  lossPrint(trader.TradeList.LossTradeSet());
+  profitPrint(tradeList.ProfitTradeSet());
+  lossPrint(tradeList.LossTradeSet());
 }
 
 function profitPrint(profitTradeSet: TradeList[]) {

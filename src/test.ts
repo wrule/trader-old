@@ -7,8 +7,8 @@ import { printReport } from './trader/report';
 
 const dayData = loadFromCoinmarketcapData(data);
 const dayPrice = nums(dayData.map((item) => item.price));
-const strategy = new Cross2Ready(dayPrice.MA(8), dayPrice.MA(44));
+const strategy = new Cross2Ready(dayPrice.MA(11), dayPrice.MA(21));
 const trader = new Trader(strategy);
 trader.Backtesting(dayData);
 
-printReport(trader);
+trader.TradeList.Select('2019-08', '2022').PrintReport();

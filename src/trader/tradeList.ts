@@ -1,6 +1,7 @@
 import { nums } from '@wrule/nums';
 import { Trade } from './trade';
 import moment from 'moment';
+import { printReport } from './report';
 
 /**
  * 交易列表
@@ -71,6 +72,18 @@ class TradeList {
       const first = this.trades[0];
       const last = this.trades[this.trades.length - 1];
       return (last.SellData.funds - first.BuyData.funds) / first.BuyData.funds;
+    }
+    return 0;
+  }
+
+  /**
+   * 资产自然升值
+   */
+  public get TotalAppreciation() {
+    if (this.trades.length > 0) {
+      const first = this.trades[0];
+      const last = this.trades[this.trades.length - 1];
+      return (last.SellData.price - first.BuyData.price) / first.BuyData.price;
     }
     return 0;
   }
@@ -178,5 +191,12 @@ class TradeList {
         )
       )
     );
+  }
+
+  /**
+   * 打印交易报告
+   */
+  public PrintReport() {
+    printReport(this);
   }
 }

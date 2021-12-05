@@ -1,6 +1,7 @@
 import { Trader } from '.';
 import { TradeList } from './tradeList';
 import 'colors';
+import moment from 'moment';
 
 function xnum(num: number) {
   return Number(num.toFixed(4));
@@ -44,6 +45,7 @@ function profitPrint(profitTradeSet: TradeList[]) {
     console.log(
       index + 1,
       '. ',
+      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[盈利次数]:', tradeList.Length,
       '[持续时长(天)]:', tradeList.Duration,
       '[总盈利(%)]:', pnum(tradeList.TotalIncome),
@@ -61,6 +63,7 @@ function lossPrint(lossTradeSet: TradeList[]) {
     console.log(
       index + 1,
       '. ',
+      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[亏损次数]:', tradeList.Length,
       '[持续时长(天)]:', tradeList.Duration,
       '[总亏损(%)]:', pnum(tradeList.TotalIncome),

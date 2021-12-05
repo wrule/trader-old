@@ -45,8 +45,8 @@ function profitPrint(profitTradeSet: TradeList[]) {
     console.log(
       index + 1,
       '. ',
-      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[盈利次数]:', tradeList.Length,
+      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[持续时长(天)]:', tradeList.Duration,
       '[总盈利(%)]:', pnum(tradeList.TotalIncome),
       '[最小盈利(%)]:', pnum(tradeList.Incomes.min()),
@@ -63,8 +63,8 @@ function lossPrint(lossTradeSet: TradeList[]) {
     console.log(
       index + 1,
       '. ',
-      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[亏损次数]:', tradeList.Length,
+      '[时间]:', `[${moment(tradeList.StartTime).format('YYYY-MM-DD HH:mm:ss')} ~ ${moment(tradeList.EndTime).format('YYYY-MM-DD HH:mm:ss')}]`,
       '[持续时长(天)]:', tradeList.Duration,
       '[总亏损(%)]:', pnum(tradeList.TotalIncome),
       '[最小亏损(%)]:', pnum(tradeList.Incomes.max()),

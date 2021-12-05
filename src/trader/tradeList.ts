@@ -36,6 +36,26 @@ class TradeList {
   }
 
   /**
+   * 开始时间
+   */
+  public get StartTime() {
+    if (this.trades.length > 0) {
+      return this.trades[0].BuyData.time;
+    }
+    return 0;
+  }
+
+  /**
+   * 结束时间
+   */
+  public get EndTime() {
+    if (this.trades.length > 0) {
+      return this.trades[this.trades.length - 1].SellData.time;
+    }
+    return 0;
+  }
+
+  /**
    * 向列表中追加交易
    * @param items 交易
    */

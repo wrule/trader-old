@@ -6,44 +6,36 @@ import { nums } from '@wrule/nums';
 import { printReport } from './trader/report';
 import { MACross2LineReadyFinder } from './finder/MACross2LineReadyFinder';
 import fs from 'fs';
+import { Cross2LineReady } from './strategy/Cross2LineReady';
+import moment from 'moment';
+import { Cross3LineReady } from './strategy/Cross3LineReady';
 
 
 const dayData = loadFromCoinmarketcapData(data);
 const dayPrice = nums(dayData.map((item) => item.price));
-const strategy = new Cross2Ready(dayPrice.MA(8), dayPrice.MA(44));
+const strategy = new Cross2LineReady(dayPrice.MA(8), dayPrice.MA(44));
 const trader = new Trader(strategy);
 trader.Backtesting(dayData);
 console.log(trader.TradeList.TotalIncome, trader.TradeList.TotalAppreciation);
 trader.TradeList.PrintReport();
 
+const a = [
+  moment('2013-07-05'),
+  moment('2013-12-04'),
+  moment('2015-01-14'),
+  moment('2017-12-16'),
+  moment('2018-12-15'),
+  moment('2019-06-26'),
+  moment('2020-03-12'),
+  moment('2021-11-08'),
+];
 
-// const dayData = loadFromCoinmarketcapData(data);
-// const finder = new MACross2LineReadyFinder([dayData], 1, 120);
-// const result = finder.Find();
-// console.log(result.size);
-// const list = Array.from(result.entries()).map(([key, value]) => ({
-//   key,
-//   trader: value[0].trader,
-// }));
-// list.sort((a, b) => b.trader.TradeList.TotalIncome - a.trader.TradeList.TotalIncome);
-// const a = list.slice(0, 100).map((item) => {
-//   return {
-//     key: item.key,
-//     funds: item.trader.TradeList.TotalIncome,
-//     a2014: item.trader.TradeList.Select(undefined, '2013-12-04').TotalIncome,
-//     a2017: item.trader.TradeList.Select('2016-10', '2017-12-16').TotalIncome,
-//     a2021: item.trader.TradeList.Select('2019-10', '2021-11-08').TotalIncome,
-//     d2014: item.trader.TradeList.Select('2013-11', '2015-04').TotalIncome,
-//     d2017: item.trader.TradeList.Select('2017-11', '2019-02').TotalIncome,
-//     d2021: item.trader.TradeList.Select('2021-01', '2021-07').TotalIncome,
-//   };
-// }).map((item) => {
-//   return {
-//     ...item,
-//     aStdDiff: nums([item.a2014, item.a2017, item.a2021]).standardDeviation(),
-//     dStdDiff: nums([item.d2014, item.d2017, item.d2021]).standardDeviation(),
-//   };
-// });
-
-// fs.writeFileSync('a.json', JSON.stringify(a, null, 2));
-
+a.forEach((item, index) => {
+  if (index < a.length - 1) {
+    console.log(item.format('YYYY-MM-DD'), index % 2 ? '顶' : '底');
+    const next = a[index + 1];
+    console.log((next.unix() - item.unix()) / 60 / 60 / 24);
+  } else {
+    console.log(item.format('YYYY-MM-DD'), index % 2 ? '顶' : '底');
+  }
+});

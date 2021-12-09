@@ -21,7 +21,13 @@ console.log(list.slice(0, 100).map((item) => [
   item.trader.TradeList.ProfitRate,
   item.trader.TradeList.Select('2013-08', '2015-05').TotalIncome - item.trader.TradeList.Select('2013-08', '2015-05').TotalAppreciation,
   item.trader.TradeList.Select('2016-10', '2019-02').TotalIncome - item.trader.TradeList.Select('2016-10', '2019-02').TotalAppreciation,
+  item.trader.TradeList.Select('2019-02', '2020-04').TotalIncome - item.trader.TradeList.Select('2019-02', '2020-04').TotalAppreciation,
   item.trader.TradeList.Select('2020-04', '2021-07').TotalIncome - item.trader.TradeList.Select('2020-04', '2021-07').TotalAppreciation,
+]).map((item) => [
+  item[0],
+  item[1],
+  item[2],
+  nums([item[3], item[4], item[5], item[6]] as number[]).standardDeviation(),
 ]));
 
 // const dayPrice = nums(dayData.map((item) => item.price));

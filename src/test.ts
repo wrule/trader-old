@@ -28,5 +28,5 @@ const strategy = new Cross2LineReady(dayPrice.MA(8), dayPrice.MA(44));
 const trader = new Trader(strategy);
 trader.Backtesting(dayData);
 // trader.TradeList.Select('2013-08', '2015-04').PrintReport();
-trader.TradeList.Select('2017-01', '2020-01').PrintReport();
+trader.TradeList.Select('2017-03', '2018-12').PrintReport();
 // trader.TradeList.Select('2020-04').PrintReport();

@@ -5,6 +5,7 @@ import { nums } from '@wrule/nums';
 import { Cross2LineReady } from './strategy/Cross2LineReady';
 import moment from 'moment';
 import { MACross2LineReadyFinder } from './finder/MACross2LineReadyFinder';
+import fs from 'fs';
 
 const dayData = loadFromCoinmarketcapData(data);
 const finder = new MACross2LineReadyFinder([dayData], 1, 120);
@@ -15,7 +16,7 @@ const list = Array.from(result.entries()).map(([key, value]) => {
   return { key, trader };
 });
 list.sort((a, b) => b.trader.TradeList.TotalIncome - a.trader.TradeList.TotalIncome);
-console.log(list.slice(0, 100).map((item) => [
+const a = list.slice(0, 100).map((item) => [
   item.key,
   item.trader.TradeList.TotalIncome,
   item.trader.TradeList.ProfitRate,
@@ -28,7 +29,10 @@ console.log(list.slice(0, 100).map((item) => [
   item[1],
   item[2],
   nums([item[3], item[4], item[5], item[6]] as number[]).standardDeviation(),
-]));
+]);
+
+fs.writeFileSync('1.json', JSON.stringify(a, null, 2));
+
 
 // const dayPrice = nums(dayData.map((item) => item.price));
 // const strategy = new Cross2LineReady(dayPrice.MA(8), dayPrice.MA(44));
